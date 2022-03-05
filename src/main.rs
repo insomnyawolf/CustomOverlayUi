@@ -56,13 +56,13 @@ fn main()  -> Result<(), Box<dyn std::error::Error>> {
                 }
                 _ => (),
             },
-            Event::UserEvent(UserEvents::NewWindow()) => {
+            Event::UserEvent(UserEvents::NewWindow(url)) => {
               let new_window = browser_window::build_window(WindowConfig{
                 always_on_top: true,
                 height : 400,
                 width : 300,
-                window_title: format!("Asd"),
-                url: format!("http://google.es"),
+                window_title: format!(""),
+                url: url,
               },
                 &event_loop,
                 proxy.clone(),

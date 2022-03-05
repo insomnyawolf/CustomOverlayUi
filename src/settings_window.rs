@@ -18,15 +18,16 @@ pub fn create_settings_window(event_loop: &EventLoopWindowTarget<UserEvents>, pr
         .unwrap();
     let window_id = window.id();
     let handler = move |window: &Window, req: String| match req.as_str() {
-        "new-window" => {
-            let _ = proxy.send_event(UserEvents::NewWindow());
-        }
         "close" => {
             let _ = proxy.send_event(UserEvents::CloseWindow(window.id()));
         }
-        _ if req.starts_with("change-title") => {
+        _ if req.starts_with("change-title:") => {
             let title = req.replace("change-title:", "");
             window.set_title(title.as_str());
+        },
+        _ if req.starts_with("open-link:") => {
+            let url = req.replace("open-link:", "");
+            let _ = proxy.send_event(UserEvents::NewWindow(url));
         }
         _ => {}
     };
@@ -39,5 +40,8 @@ pub fn create_settings_window(event_loop: &EventLoopWindowTarget<UserEvents>, pr
         .with_ipc_handler(handler)
         .build()
         .unwrap();
+
+        webview.devtool();
+
     (window_id, webview)
 }
