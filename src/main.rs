@@ -29,6 +29,10 @@ fn main()  -> Result<(), Box<dyn std::error::Error>> {
 
     let proxy = event_loop.create_proxy();
 
+    let id = settings_window::create_settings_window(&event_loop, proxy.clone());
+    webviews.insert(id.0, id.1);
+
+    // webview elements so you can refresh it's size
     for window_config in config.windows {
         let window = browser_window::build_window(window_config, &event_loop, proxy.clone());
         webviews.insert(window.0, window.1);
@@ -58,7 +62,7 @@ fn main()  -> Result<(), Box<dyn std::error::Error>> {
                 height : 400,
                 width : 300,
                 window_title: format!("Asd"),
-                url: format!("asdasd"),
+                url: format!("http://google.es"),
               },
                 &event_loop,
                 proxy.clone(),

@@ -1,0 +1,3 @@
+<button onclick="window.ipc.postMessage('new-window')">Open a new window</button>
+<button onclick="window.ipc.postMessage('close')">Close current window</button>
+<input oninput="window.ipc.postMessage(`change-title:${this.value}`)" />
