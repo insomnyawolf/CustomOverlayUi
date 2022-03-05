@@ -1,0 +1,25 @@
+{
+    "windows":[
+        {
+            "always_on_top": true,
+            "window_title": "Test",
+            "url": "https://youtu.be/qKidQKIDkYA",
+            "width": 800,
+            "height": 600
+        },
+        {
+            "always_on_top": true,
+            "window_title": "Test1",
+            "url": "https://docs.rs/",
+            "width": 300,
+            "height": 400
+        },
+        {
+            "always_on_top": true,
+            "window_title": "Test2",
+            "url": "https://soundcloud.com/fauxtales/atlas-acoustic",
+            "width": 500,
+            "height": 500
+        }
+    ]
+}
