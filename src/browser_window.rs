@@ -1,4 +1,4 @@
-use wry::application::dpi::PhysicalSize;
+use wry::application::window::Fullscreen;
 use wry::{
     application::{
         event_loop::{EventLoopProxy, EventLoopWindowTarget},
@@ -7,8 +7,8 @@ use wry::{
     webview::{WebView, WebViewBuilder},
 };
 
-use crate::shared_events::{UserEvents};
-use crate::config::{WindowConfig};
+use crate::config::WindowConfig;
+use crate::shared_events::UserEvents;
 
 pub fn build_window(
     window_config: WindowConfig,
@@ -24,10 +24,33 @@ pub fn build_window(
 
     window.set_always_on_top(window_config.always_on_top);
 
-    let size: PhysicalSize<u32> = PhysicalSize::new(window_config.width, window_config.height);
-    window.set_inner_size(size);
+    let mut window_size = window_config.size;
 
-    let webview = WebViewBuilder::new(window).unwrap().with_url(&window_config.url).unwrap().build().unwrap();
+    if window_config.fullscreen {
+        window.set_fullscreen(Some(Fullscreen::Borderless(None)));
+        // Adjust to fullscreen resolution
+        match window.current_monitor() {
+            Some(monitor_info) =>{
+                window_size = monitor_info.size();
+            },
+            None =>{
+                // So nothing
+            }
+        };     
+    }
+
+    window.set_inner_size(window_size);
+
+    window.set_outer_position(window_config.position);
+
+    window.set_resizable(window_config.resizable);
+
+    let webview = WebViewBuilder::new(window)
+        .unwrap()
+        .with_url(&window_config.url)
+        .unwrap()
+        .build()
+        .unwrap();
 
     (window_id, webview)
 }

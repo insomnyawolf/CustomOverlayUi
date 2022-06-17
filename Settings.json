@@ -1,0 +1,21 @@
+{
+    "enable_debugging": false,
+    "enable_experimental_features": false,
+    "windows": [
+        {
+            "window_title": "Test",
+            "url": "https://www.youtube.com/watch?v=im0ekPO4qew",
+            "always_on_top": true,
+            "fullscreen": false,
+            "resizable": true,
+            "size": {
+                "height": 800,
+                "width": 600
+            },
+            "position": {
+                "x": 0,
+                "y": 0
+            }
+        }
+    ]
+}
